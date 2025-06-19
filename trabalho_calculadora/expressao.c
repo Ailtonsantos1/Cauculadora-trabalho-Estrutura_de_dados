@@ -5,6 +5,10 @@
 #include <math.h>
 #include "expressao.h"
 
+#ifndef M_PI
+#define M_PI 3.14159265358979323846
+#endif
+
 #define MAX 512
 
 typedef struct {
@@ -54,6 +58,46 @@ float evalFunc(char* func, float val) {
     if (strcmp(func, "log") == 0) return log10(val);
     if (strcmp(func, "raiz") == 0) return sqrt(val);
     return 0;
+}
+int isNumber(const char *token) {
+    int hasDot = 0;
+    int i = 0;
+
+    if (token[0] == '-') i = 1;
+
+    for (; token[i]; i++) {
+        if (token[i] == '.') {
+            if (hasDot) return 0;
+            hasDot = 1;
+        } else if (!isdigit(token[i])) {
+            return 0;
+        }
+    }
+
+    return (i > 0);
+}
+
+int verificaPosFixada(char *linha) {
+    char *token;
+    int stackSize = 0;
+
+    token = strtok(linha, " \t\n");
+    while (token != NULL) {
+        if (isNumber(token)) {
+            stackSize++;
+        } else if (isOperator(token)) {
+            if (stackSize < 2) return 0;
+            stackSize--; // consome 2, produz 1
+        } else if (isFunction(token)) {
+            if (stackSize < 1) return 0;
+            // consome 1, produz 1 (então stackSize não muda)
+        } else {
+            return 0; // token desconhecido
+        }
+        token = strtok(NULL, " \t\n");
+    }
+
+    return (stackSize == 1);
 }
 
 // --- Conversão para Pós-fixa ---

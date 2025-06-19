@@ -12,6 +12,21 @@ int main() {
         printf("Erro ao abrir o arquivo 'entradas.txt'\n");
         return 1;
     }
+char linha[MAX_LINE];
+    int linhaAtual = 1;
+
+    while (fgets(linha, sizeof(linha), arquivo)) {
+        char copia[MAX_LINE];
+        strcpy(copia, linha);
+
+        if (verificaPosFixada(copia)) {
+            printf("Linha %d: POS-FIXADA VÁLIDA ✅\n", linhaAtual);
+        } else {
+            printf("Linha %d: INVÁLIDA ❌\n", linhaAtual);
+        }
+
+        linhaAtual++;
+    }
 
     while (fgets(linha, sizeof(linha), f) && i < 100) {
         linha[strcspn(linha, "\n")] = '\0';
