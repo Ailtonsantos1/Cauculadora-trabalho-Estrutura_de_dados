@@ -1,0 +1,16 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Compilar e Executar",
+      "type": "shell",
+      "command": "gcc expressao.c main.c -o expressao.exe -lm && ./expressao.exe",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "detail": "Compila todos os arquivos e executa"
+    }
+  ]
+}
