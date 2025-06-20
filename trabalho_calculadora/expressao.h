@@ -11,5 +11,5 @@ char* getFormaInFixa(char *str);
 char* getFormaPosFixa(char *str);
 float getValorPosFixa(char *strPosFixa);
 float getValorInFixa(char *strInFixa);
-
+int verificaPosFixada(char* expr);
 #endif
